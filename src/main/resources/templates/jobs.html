@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản lý tin tuyển dụng</title>
+    <th:block th:replace="base :: resources"></th:block>
+</head>
+<body>
+    <div th:replace="base :: header"></div>
+
+    <section class="container mt-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0" th:text="${job.id == null ? 'ĐĂNG TIN TUYỂN DỤNG MỚI' : 'CẬP NHẬT TIN TUYỂN DỤNG'}"></h4>
+            </div>
+            <div class="card-body">
+                <form method="post" th:object="${job}" th:action="@{/admin/jobs}">
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Tiêu đề công việc</label>
+                        <input type="text" class="form-control" placeholder="Ví dụ: Lập trình viên Java (Senior)" required th:field="*{title}" />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Mức lương (VNĐ)</label>
+                            <input type="number" class="form-control" placeholder="Ví dụ: 20000000" th:field="*{salary}" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Ngành nghề</label>
+                            <select class="form-select" th:field="*{category}">
+                                <option value="">-- Chọn ngành nghề --</option>
+                                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mô tả công việc</label>
+                        <textarea class="form-control" rows="5" placeholder="Nhiệm vụ, yêu cầu kỹ thuật..." th:field="*{description}"></textarea>
+                    </div>
+
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="mt-4 border-top pt-3 text-end">
+                        <a th:href="@{/admin/jobs/index}" class="btn btn-secondary me-2">Hủy bỏ</a>
+                        <button type="submit" class="btn btn-success px-4">
+                            <span th:text="${job.id == null ? 'Đăng tin' : 'Lưu thay đổi'}"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="base :: footer"></div>
+</body>
+</html>

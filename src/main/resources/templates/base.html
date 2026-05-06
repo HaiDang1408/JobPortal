@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="resources"> <meta charset="UTF-8">
+    <title>Job Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark mb-4"> <div class="container">
+            <a class="navbar-brand" th:href="@{/}">JOB PORTAL</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Ngành nghề</a>
+                        <ul class="dropdown-menu">
+                            <li th:each="c : ${categories}">
+                                <a class="dropdown-item" th:href="@{/(cateId=${c.id})}" th:text="${c.name}">Ngành nghề</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-success ms-2" th:href="@{/admin/jobs}">+ Đăng bài</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a class="btn btn-primary me-2" th:href="@{/login}">Đăng nhập</a>
+                    <a class="btn btn-light" th:href="@{/register}">Đăng ký</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section th:replace="${content}"></section>
+    </div>
+
+    <footer th:fragment="footer" class="text-center mt-5 py-3 bg-light"> <p>&copy; 2026 - Hệ thống Sàn việc làm</p>
+    </footer>
+
+</body>
+</html>
